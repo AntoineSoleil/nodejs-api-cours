@@ -1,0 +1,1 @@
+const e=require("path"),i=require(e.join(__dirname,"..","..","core","ClassCore.js"));module.exports=class e extends i{constructor(){super(),this._something="This is amazing !"}get something(){return this._something}};

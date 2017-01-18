@@ -1,30 +1,32 @@
-'use strict';
+'use strict'
 
-const gulp        = require('gulp');
-const minifyHtml  = require('gulp-minify-html');
-const minifier    = require('gulp-uglify/minifier');
-const strip       = require('gulp-strip-comments');
-const jsonminify  = require('gulp-jsonminify');
-const del         = require('del');
-const uglifyjs    = require('uglify-js');
-const pump        = require('pump');
-const minifyCss   = require('gulp-minify-css');
+const gulp = require('gulp')
+const minifyHtml = require('gulp-minify-html')
+const minifier = require('gulp-uglify/minifier')
+const strip = require('gulp-strip-comments')
+const jsonminify = require('gulp-jsonminify')
+const del = require('del')
+const uglifyjs = require('uglify-js')
+const pump = require('pump')
+const minifyCss = require('gulp-minify-css')
+const gutil = require('gulp-util')
+const path = require('path')
 
 /**
  * Name of production foler, who will contains production's sources
  * @type {String}
  */
-const prodFolderName = 'prod';
+const prodFolderName = 'prod'
 
 /**
  * Delete the existing prod folder
  */
 gulp.task('deleteExistingProdFolder', (cb) => {
-  del(__dirname+'/'+prodFolderName).then(paths => {
-    console.log('Deleted files and folders:\n', paths.join('\n'));
-    cb();
-  });
-});
+  del(path.join(__dirname, prodFolderName)).then(paths => {
+    console.log('Deleted files and folders:\n', paths.join('\n'))
+    cb()
+  })
+})
 
 /**
  * Minify JS files
@@ -38,22 +40,48 @@ gulp.task('deleteExistingProdFolder', (cb) => {
  */
 gulp.task('js', ['deleteExistingProdFolder'], () => {
   return pump([
-    gulp.src([__dirname+'/**/*.js', '!'+__dirname+'/node_modules/**/*.*', '!'+__dirname+'/gulpfile.js']),
+    gulp.src([
+      path.join(__dirname, '**', '*.js'),
+      '!' + path.join(__dirname, 'node_modules', '**', '*.*'),
+      '!' + path.join(__dirname, 'test', '**', '*.*'),
+      '!' + path.join(__dirname, 'gulpfile.js')
+    ]),
     strip(),
-    minifier(null, uglifyjs),
-    gulp.dest(__dirname+'/'+prodFolderName)
-  ]);
-});
+    minifier(null, uglifyjs).on('error', (err) => {
+      console.log(err)
+    }),
+    gulp.dest(path.join(__dirname, prodFolderName))
+  ])
+})
+// gulp.task('js', ['deleteExistingProdFolder'], () => {
+//   return gulp.src([
+//       path.join(__dirname, '**', '*.js'),
+//       '!' + path.join(__dirname, 'node_modules', '**', '*.*'),+
+//       '!' + path.join(__dirname, 'test', '*.test.js'),
+//       '!' + path.join(__dirname, 'gulpfile.js')
+//     ])
+//     .pipe(strip())
+//     .pipe(
+//       minifier(null, uglifyjs).on('error', (err) => {
+//         console.log(err)
+//       })
+//     )
+//     .pipe(gulp.dest(path.join(__dirname, prodFolderName)))
+// })
 
 /**
  * Minify JSON files.
  * The deleteExistingProdFolder task is require before this task.
  */
 gulp.task('json', ['deleteExistingProdFolder'], () => {
-  return gulp.src([__dirname+'/**/*.json', '!'+__dirname+'/node_modules/**/*.*', '!'+__dirname+'/package.json'])
-    .pipe(jsonminify())
-    .pipe(gulp.dest(__dirname+'/'+prodFolderName));
-});
+  return gulp.src([
+    path.join(__dirname, '**', '.json'),
+    '!' + path.join(__dirname, 'node_modules', '**', '*.*'),
+    '!' + path.join(__dirname, 'package.json')
+  ])
+  .pipe(jsonminify())
+  .pipe(gulp.dest(path.join(__dirname, prodFolderName)))
+})
 
 /**
  * Minify HTML files.
@@ -63,20 +91,10 @@ gulp.task('json', ['deleteExistingProdFolder'], () => {
  * This make not any problem :)
  */
 gulp.task('html', ['deleteExistingProdFolder'], () => {
-  return gulp.src(__dirname+'/views/**/*.ejs')
+  return gulp.src(path.join(__dirname, 'views', '**', '*.ejs'))
     .pipe(minifyHtml())
-    .pipe(gulp.dest(__dirname+'/'+prodFolderName+'/views'));
-});
-
-/**
- * Move SSL certificats.
- * The deleteExistingProdFolder task is require before this task.
- */
-gulp.task('moveCert', ['deleteExistingProdFolder'], () => {
-  gulp
-    .src(__dirname+'/config/cert/*.*')
-    .pipe(gulp.dest(__dirname+'/'+prodFolderName+'/config/cert'));
-});
+    .pipe(gulp.dest(path.join(__dirname, prodFolderName, 'views')))
+})
 
 /**
  * Minify public JS files.
@@ -86,25 +104,25 @@ gulp.task('moveCert', ['deleteExistingProdFolder'], () => {
  */
 gulp.task('public:js', ['deleteExistingProdFolder'], () => {
   return pump([
-    gulp.src(__dirname+'/public/js/*.js'),
+    gulp.src(path.join(__dirname, 'public', 'js', '*.js')),
     strip(),
     minifier(null, uglifyjs),
-    gulp.dest(__dirname+'/'+prodFolderName+'/public/js')
-  ]);
-});
+    gulp.dest(path.join(__dirname, prodFolderName, 'public', 'js'))
+  ])
+})
 
 /**
  * Minify CSS files.
  * The deleteExistingProdFolder task is require before this task.
  */
 gulp.task('public:css', ['deleteExistingProdFolder'], () => {
-  return gulp.src(__dirname+'/public/css/*.css')
+  return gulp.src(path.join(__dirname, 'public', 'css', '*.css'))
     .pipe(minifyCss())
-    .pipe(gulp.dest(__dirname+'/'+prodFolderName+'/public/css'));
-});
+    .pipe(gulp.dest(path.join(__dirname, prodFolderName, 'public', 'css')))
+})
 
 /**
  * Default task.
  * Will run when `gulp` command will used without parameter.
  */
-gulp.task('default', ['deleteExistingProdFolder', 'js', 'json', 'html', 'moveCert', 'public:js', 'public:css']);
+gulp.task('default', ['deleteExistingProdFolder', 'js', 'json', 'html', 'public:js', 'public:css'])

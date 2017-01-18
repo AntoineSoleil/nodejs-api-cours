@@ -34,6 +34,7 @@
     "morgan": "^1.7.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-jsonminify": "^1.0.0",
@@ -41,11 +42,12 @@
     "gulp-minify-html": "^1.0.6",
     "gulp-strip-comments": "^2.4.3",
     "gulp-uglify": "^2.0.0",
-    "pump": "^1.0.1",
-    "uglify-js": "https://github.com/mishoo/UglifyJS2#harmony",
-    "chai": "^3.5.0",
+    "gulp-util": "^3.0.8",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
-    "supertest": "^2.0.1"
+    "pump": "^1.0.1",
+    "standard": "^8.6.0",
+    "supertest": "^2.0.1",
+    "uglify-js": "https://github.com/mishoo/UglifyJS2#harmony"
   }
 }

@@ -1,7 +1,9 @@
 # Node.js boilerplate
-Node.js (v6.9.1+) boilerplate to start quickly your from-scratch projects.
+Node.js (v6.9.4+) boilerplate to start quickly your from-scratch projects.
 
-Use some ECMAScript 6 standards.
+Use ECMAScript 2015 (ES6) standards.
+
+[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 ## Details
 This boilerplate contains:

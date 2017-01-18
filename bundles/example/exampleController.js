@@ -1,10 +1,11 @@
 /**
  * Example controller
  * @author Simon Tannai <tannai.simon@gmail.com>
+ * @license MIT
  * @todo: Nothing
  */
 
-'use strict';
+'use strict'
 
 /**
  * Some function
@@ -12,8 +13,8 @@
  * @return {Mixed}               Return parameter
  */
 let someFunction = (someParameter) => {
-  return someParameter;
-};
+  return someParameter
+}
 
 /**
  * Export module with functions
@@ -21,4 +22,4 @@ let someFunction = (someParameter) => {
  */
 module.exports = {
   'someFunction': someFunction
-};
+}
