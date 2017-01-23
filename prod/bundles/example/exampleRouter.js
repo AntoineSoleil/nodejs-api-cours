@@ -1,1 +1,0 @@
-"use strict";const e=require("path"),r=require("express"),o=r.Router(),s=require(e.join(__dirname,"exampleController.js")),t=require(e.join(__dirname,"..","..","core","Logger.js"));o.post("/",(e,r)=>{if(!e.body.query)return t.error("No query"),r.status(403).send();{let e=s.someFunction();r.status(200).send(e)}}),module.exports=o;

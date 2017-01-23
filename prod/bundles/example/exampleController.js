@@ -1,1 +1,0 @@
-"use strict";let t=t=>{return t};module.exports={someFunction:t};

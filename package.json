@@ -8,7 +8,8 @@
     "build": "./node_modules/gulp/bin/gulp.js",
     "dev": "NODE_ENV=development nodemon server.js",
     "syntax": "./node_modules/standard/bin/cmd.js",
-    "prod": "NODE_ENV=production node server.js"
+    "prod": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node server.js"
   },
   "repository": {
     "type": "git",
