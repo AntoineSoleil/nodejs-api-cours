@@ -9,7 +9,6 @@ const del = require('del')
 const uglifyjs = require('uglify-js')
 const pump = require('pump')
 const minifyCss = require('gulp-minify-css')
-const gutil = require('gulp-util')
 const path = require('path')
 
 /**
@@ -53,21 +52,6 @@ gulp.task('js', ['deleteExistingProdFolder'], () => {
     gulp.dest(path.join(__dirname, prodFolderName))
   ])
 })
-// gulp.task('js', ['deleteExistingProdFolder'], () => {
-//   return gulp.src([
-//       path.join(__dirname, '**', '*.js'),
-//       '!' + path.join(__dirname, 'node_modules', '**', '*.*'),+
-//       '!' + path.join(__dirname, 'test', '*.test.js'),
-//       '!' + path.join(__dirname, 'gulpfile.js')
-//     ])
-//     .pipe(strip())
-//     .pipe(
-//       minifier(null, uglifyjs).on('error', (err) => {
-//         console.log(err)
-//       })
-//     )
-//     .pipe(gulp.dest(path.join(__dirname, prodFolderName)))
-// })
 
 /**
  * Minify JSON files.
@@ -122,7 +106,16 @@ gulp.task('public:css', ['deleteExistingProdFolder'], () => {
 })
 
 /**
+ * Move package.json file
+ */
+gulp.task('movePackage', ['deleteExistingProdFolder'], () => {
+  gulp
+  .src(path.join(__dirname, 'package.json'))
+  .pipe(gulp.dest(path.join(__dirname, prodFolderName)))
+})
+
+/**
  * Default task.
  * Will run when `gulp` command will used without parameter.
  */
-gulp.task('default', ['deleteExistingProdFolder', 'js', 'json', 'html', 'public:js', 'public:css'])
+gulp.task('default', ['deleteExistingProdFolder', 'js', 'json', 'html', 'public:js', 'public:css', 'movePackage'])
