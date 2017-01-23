@@ -59,9 +59,8 @@ gulp.task('js', ['deleteExistingProdFolder'], () => {
  */
 gulp.task('json', ['deleteExistingProdFolder'], () => {
   return gulp.src([
-    path.join(__dirname, '**', '.json'),
-    '!' + path.join(__dirname, 'node_modules', '**', '*.*'),
-    '!' + path.join(__dirname, 'package.json')
+    path.join(__dirname, '**', '*.json'),
+    '!' + path.join(__dirname, 'node_modules', '**', '*.*')
   ])
   .pipe(jsonminify())
   .pipe(gulp.dest(path.join(__dirname, prodFolderName)))
@@ -104,18 +103,8 @@ gulp.task('public:css', ['deleteExistingProdFolder'], () => {
     .pipe(minifyCss())
     .pipe(gulp.dest(path.join(__dirname, prodFolderName, 'public', 'css')))
 })
-
-/**
- * Move package.json file
- */
-gulp.task('movePackage', ['deleteExistingProdFolder'], () => {
-  gulp
-  .src(path.join(__dirname, 'package.json'))
-  .pipe(gulp.dest(path.join(__dirname, prodFolderName)))
-})
-
 /**
  * Default task.
  * Will run when `gulp` command will used without parameter.
  */
-gulp.task('default', ['deleteExistingProdFolder', 'js', 'json', 'html', 'public:js', 'public:css', 'movePackage'])
+gulp.task('default', ['deleteExistingProdFolder', 'js', 'json', 'html', 'public:js', 'public:css'])
