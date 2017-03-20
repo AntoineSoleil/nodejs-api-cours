@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors())
 
 // Define static foler who will contains the Webapp, like Angular.js
-app.use(express.static(path.join(__dirname, 'webapp')))
+// app.use(express.static(path.join(__dirname, 'webapp')))
 
 /* =================================================================== *\
  *  LOG HTTP
