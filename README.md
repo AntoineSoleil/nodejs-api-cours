@@ -1,5 +1,5 @@
 # Node.js boilerplate
-Node.js (v6.9.4+) boilerplate to start quickly your from-scratch projects.
+Node.js (v6.10.0+) boilerplate to start quickly your from-scratch projects.
 
 Use ECMAScript 2015 (ES6) standards.
 
@@ -12,9 +12,10 @@ This boilerplate contains:
 - Logs to trace HTTP requests and Node.js messages.
 - Units tests with Mocha and others modules.
 - Gulp, awesome to build your production package.
+- Yarn, instead of NPM, to manage dependencies.
 
 ## Development install
-Install dependencies with `npm i` command.
+Install dependencies with `yarn` command.
 
 Run the server with `npm run dev` command.
 
