@@ -14,8 +14,7 @@ This boilerplate contains:
 - Gulp, awesome to build your production package.
 - Yarn, instead of NPM, to manage dependencies.
 
-## Prerequisites
-
+## Prerequisites
 - Node.js v6.10.0
 - Yarn: `npm i -g yarn`
 
