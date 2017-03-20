@@ -1,13 +1,13 @@
 #!/bin/sh
 
-# Set production environment
-NODE_ENV=production
+# Set development environment
+NODE_ENV=development
 
 # Create log folder
 mkdir logs
 
 # Install dependancies
-npm i
+yarn install
 
 # Run the server
-npm run prod
+npm run dev
